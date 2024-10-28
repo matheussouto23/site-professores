@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="static/css/style.css"> <!-- Caminho atualizado para o CSS -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}"> <!-- Usando url_for para o CSS -->
     <title>Página Inicial - Plataforma Escolar</title>
 </head>
 <body>
@@ -13,8 +13,8 @@
 
     <nav>
         <ul>
-            <li><a href="login.html">Login</a></li> <!-- Caminho atualizado -->
-            <li><a href="register.html">Registrar</a></li> <!-- Caminho atualizado -->
+            <li><a href="{{ url_for('auth.login') }}">Login</a></li> <!-- Usando url_for para o login -->
+            <li><a href="{{ url_for('auth.register') }}">Registrar</a></li> <!-- Usando url_for para registro -->
         </ul>
     </nav>
 
@@ -34,8 +34,8 @@
         <p>Para começar, você pode se registrar como um novo usuário ou fazer login se já tiver uma conta.</p>
 
         <div class="actions">
-            <a class="btn" href="register.html">Registrar</a> <!-- Caminho atualizado -->
-            <a class="btn" href="login.html">Login</a> <!-- Caminho atualizado -->
+            <a class="btn" href="{{ url_for('auth.register') }}">Registrar</a> <!-- Usando url_for para registro -->
+            <a class="btn" href="{{ url_for('auth.login') }}">Login</a> <!-- Usando url_for para login -->
         </div>
     </div>
 

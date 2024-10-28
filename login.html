@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" type="text/css" href="static/css/style.css"> <!-- Caminho direto para o CSS -->
     <title>Login - Plataforma Escolar</title>
 </head>
 <body>
@@ -12,7 +12,7 @@
     </header>
 
     <div class="container">
-        <form method="POST" action="{{ url_for('auth.login') }}">
+        <form method="POST" action="login_process.php"> <!-- Ajuste a ação para seu script de login -->
             <div>
                 <label for="email">Email:</label>
                 <input type="text" id="email" name="email" required>
@@ -27,8 +27,8 @@
         </form>
 
         <div class="links">
-            <p>Não tem uma conta? <a href="{{ url_for('auth.register') }}">Registrar aqui</a></p>
-            <p><a href="{{ url_for('index') }}">Voltar para a página inicial</a></p>
+            <p>Não tem uma conta? <a href="register.html">Registrar aqui</a></p> <!-- Caminho direto para a página de registro -->
+            <p><a href="index.html">Voltar para a página inicial</a></p> <!-- Caminho direto para a página inicial -->
         </div>
     </div>
 

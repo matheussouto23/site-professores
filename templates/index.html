@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <title>Página Inicial - Plataforma Escolar</title>
+</head>
+<body>
+    <header>
+        <h1>Bem-vindo à Plataforma Escolar</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('auth.login') }}">Login</a></li>
+            <li><a href="{{ url_for('auth.register') }}">Registrar</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h2>O que é a Plataforma Escolar?</h2>
+        <p>A Plataforma Escolar é um ambiente virtual que facilita a interação entre professores e alunos, permitindo o gerenciamento de conteúdos escolares de forma simples e eficiente.</p>
+        
+        <h3>Funcionalidades</h3>
+        <ul>
+            <li>Autenticação de usuários (professores e alunos)</li>
+            <li>Gestão de turmas e materiais didáticos</li>
+            <li>Favoritar conteúdos para fácil acesso</li>
+            <li>Upload de materiais didáticos pelos professores</li>
+        </ul>
+
+        <h3>Como Começar</h3>
+        <p>Para começar, você pode se registrar como um novo usuário ou fazer login se já tiver uma conta.</p>
+
+        <div class="actions">
+            <a class="btn" href="{{ url_for('auth.register') }}">Registrar</a>
+            <a class="btn" href="{{ url_for('auth.login') }}">Login</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Plataforma Escolar. Todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>

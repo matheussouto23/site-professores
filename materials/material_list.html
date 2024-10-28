@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <title>Lista de Materiais - Plataforma Escolar</title>
+</head>
+<body>
+    <header>
+        <h1>Lista de Materiais - {{ turma.nome }}</h1>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('auth.logout') }}">Sair</a></li>
+                <li><a href="{{ url_for('professor.index') }}">Painel do Professor</a></li>
+                <li><a href="{{ url_for('aluno.index') }}">Painel do Aluno</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h2>Materiais Disponíveis</h2>
+        <ul>
+            {% for material in materiais %}
+            <li>
+                {{ material.nome }} - {{ material.descricao }}
+                <a href="{{ url_for('aluno.favorite_material', material_id=material.id) }}">Favoritar</a>
+                <a href="{{ url_for('professor.delete_material', material_id=material.id) }}">Remover</a>
+            </li>
+            {% else %}
+            <li>Nenhum material disponível para esta turma.</li>
+            {% endfor %}
+        </ul>
+
+        <h2>Adicionar Novo Material</h2>
+        <form method="POST" action="{{ url_for('professor.upload_material', turma_id=turma.id) }}" enctype="multipart/form-data">
+            <div>
+                <label for="material_name">Nome do Material:</label>
+                <input type="text" id="material_name" name="material_name" required>
+            </div>
+            <div>
+                <label for="material_file">Selecionar Arquivo:</label>
+                <input type="file" id="material_file" name="material_file" required>
+            </div>
+            <div>
+                <button type="submit" class="btn">Adicionar Material</button>
+            </div>
+        </form>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Plataforma Escolar. Todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>

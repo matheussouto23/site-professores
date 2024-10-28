@@ -1,0 +1,56 @@
+# Arquivos e pastas do Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pkl
+
+# Ambiente virtual
+venv/
+env/
+.venv/
+.env/
+.venv.bak/
+
+# Arquivos de configuração e credenciais
+*.env
+.env.*
+config.py  # Remova esta linha se config.py não contiver informações sensíveis
+instance/
+
+# Banco de Dados e Arquivos de Migração
+*.sqlite3
+*.db
+*.db-journal
+migrations/
+
+# Arquivos de Log
+*.log
+*.pot
+*.pid
+*.seed
+*.pid.lock
+
+# Arquivos de Cache de Jupyter Notebooks
+.ipynb_checkpoints
+
+# Arquivos de IDEs
+.vscode/
+.idea/
+
+# Arquivos de sistema operacional
+.DS_Store
+Thumbs.db
+
+# Arquivos de uploads e mídia
+static/uploads/
+media/
+
+# Dependências
+Pipfile
+Pipfile.lock
+poetry.lock
+
+# Configurações específicas do sistema
+*.bak
+*~

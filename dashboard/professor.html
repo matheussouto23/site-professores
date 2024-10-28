@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <title>Painel do Professor - Plataforma Escolar</title>
+</head>
+<body>
+    <header>
+        <h1>Painel do Professor</h1>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('auth.logout') }}">Sair</a></li>
+                <li><a href="{{ url_for('index') }}">Página Inicial</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h2>Minhas Turmas</h2>
+        <ul>
+            {% for turma in turmas %}
+            <li>
+                {{ turma.nome }} 
+                <a href="{{ url_for('professor.view_materials', turma_id=turma.id) }}">Ver Materiais</a>
+            </li>
+            {% endfor %}
+        </ul>
+
+        <h2>Cadastrar Nova Turma</h2>
+        <form method="POST" action="{{ url_for('professor.create_class') }}">
+            <div>
+                <label for="class_name">Nome da Turma:</label>
+                <input type="text" id="class_name" name="class_name" required>
+            </div>
+            <div>
+                <button type="submit" class="btn">Cadastrar Turma</button>
+            </div>
+        </form>
+
+        <h2>Upload de Materiais Didáticos</h2>
+        <form method="POST" action="{{ url_for('professor.upload_material') }}" enctype="multipart/form-data">
+            <div>
+                <label for="material_file">Selecionar Arquivo:</label>
+                <input type="file" id="material_file" name="material_file" required>
+            </div>
+            <div>
+                <label for="class_select">Selecionar Turma:</label>
+                <select id="class_select" name="class_id" required>
+                    {% for turma in turmas %}
+                    <option value="{{ turma.id }}">{{ turma.nome }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <button type="submit" class="btn">Enviar Material</button>
+            </div>
+        </form>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Plataforma Escolar. Todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>

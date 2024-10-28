@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <title>Painel do Aluno - Plataforma Escolar</title>
+</head>
+<body>
+    <header>
+        <h1>Painel do Aluno</h1>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('auth.logout') }}">Sair</a></li>
+                <li><a href="{{ url_for('index') }}">Página Inicial</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h2>Materiais Didáticos Disponíveis</h2>
+        <ul>
+            {% for material in materiais %}
+            <li>
+                {{ material.nome }} - {{ material.turma_nome }}
+                <a href="{{ url_for('aluno.favorite_material', material_id=material.id) }}">Favoritar</a>
+            </li>
+            {% endfor %}
+        </ul>
+
+        <h2>Meus Favoritos</h2>
+        <ul>
+            {% for favorito in favoritos %}
+            <li>
+                {{ favorito.nome }} - {{ favorito.turma_nome }}
+                <a href="{{ url_for('aluno.remove_favorite', material_id=favorito.id) }}">Remover Favorito</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Plataforma Escolar. Todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>

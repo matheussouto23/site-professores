@@ -1,10 +1,9 @@
-from flask import Flask, render_template, redirect, url_for, request, flash
+from flask import Flask, render_template, redirect, url_for, request, session
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 import os
 from supabase import create_client, Client
-import os
 from dotenv import load_dotenv
 
 # Carregar variáveis de ambiente
@@ -17,7 +16,7 @@ app.config['UPLOAD_FOLDER'] = os.path.join('static', 'uploads')
 
 # Inicialização do Supabase
 supabase_url = os.getenv('SUPABASE_URL')
-supabase_key = os.getenv('SUPABASE_ANON_KEY')
+supabase_key = os.getenv('SUPABASE_KEY')
 supabase: Client = create_client(supabase_url, supabase_key)
 
 # Inicialização do login manager
@@ -54,8 +53,9 @@ def login():
             login_user(user)
             return redirect(url_for('dashboard'))
         else:
-            flash('Login ou senha incorretos')
-    return render_template('login.html')
+            session['message'] = 'Login ou senha incorretos'
+            return redirect(url_for('login'))
+    return render_template('login.html', message=session.pop('message', None))
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -73,9 +73,9 @@ def register():
         }
 
         supabase.table('usuarios').insert(new_user).execute()
-        flash('Cadastro realizado com sucesso! Faça login para continuar.')
+        session['message'] = 'Cadastro realizado com sucesso! Faça login para continuar.'
         return redirect(url_for('login'))
-    return render_template('register.html')
+    return render_template('register.html', message=session.pop('message', None))
 
 @app.route('/logout')
 @login_required
@@ -101,7 +101,7 @@ def dashboard():
 @login_required
 def upload_material():
     if not current_user.is_teacher:
-        flash('Acesso negado. Somente professores podem fazer upload de materiais.')
+        session['message'] = 'Acesso negado. Somente professores podem fazer upload de materiais.'
         return redirect(url_for('dashboard'))
 
     if request.method == 'POST':
@@ -121,9 +121,9 @@ def upload_material():
                 'user_id': current_user.id
             }
             supabase.table('materiais_didaticos').insert(new_material).execute()
-            flash('Material enviado com sucesso!')
+            session['message'] = 'Material enviado com sucesso!'
             return redirect(url_for('dashboard'))
-    return render_template('upload.html')
+    return render_template('upload.html', message=session.pop('message', None))
 
 # Executar a aplicação
 if __name__ == '__main__':

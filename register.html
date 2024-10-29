@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="static/css/style.css"> <!-- Caminho direto para o CSS -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}"> <!-- Caminho dinâmico para o CSS -->
     <title>Registrar - Plataforma Escolar</title>
 </head>
 <body>
@@ -12,7 +12,7 @@
     </header>
 
     <div class="container">
-        <form method="POST" action="register_process.php"> <!-- Ajuste a ação para o seu script de registro -->
+        <form method="POST" action="{{ url_for('register') }}">
             <div>
                 <label for="username">Nome de Usuário:</label>
                 <input type="text" id="username" name="username" required>
@@ -30,13 +30,18 @@
                 <input type="password" id="confirm_password" name="confirm_password" required>
             </div>
             <div>
+                <label>
+                    <input type="checkbox" name="is_teacher"> Sou Professor
+                </label>
+            </div>
+            <div>
                 <button type="submit" class="btn">Registrar</button>
             </div>
         </form>
 
         <div class="links">
-            <p>Já tem uma conta? <a href="login.html">Faça login aqui</a></p> <!-- Caminho direto para a página de login -->
-            <p><a href="index.html">Voltar para a página inicial</a></p> <!-- Caminho direto para a página inicial -->
+            <p>Já tem uma conta? <a href="{{ url_for('login') }}">Faça login aqui</a></p>
+            <p><a href="{{ url_for('index') }}">Voltar para a página inicial</a></p>
         </div>
     </div>
 
